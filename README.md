@@ -1,7 +1,7 @@
 # TypeScript-Practice
 
 
-## This is TypeScript Folder meant to show practical guides of a good usage of TypeScript together with React
+** This is TypeScript Folder meant to show practical guides of a good usage of TypeScript together with React **
 
 What Contains? 
 
