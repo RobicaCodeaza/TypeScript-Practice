@@ -5,19 +5,22 @@ import { type PropsWithChildren } from 'react';
 //   children: ReactNode;
 // }
 
-type CourseGoalProps = PropsWithChildren<{ title: string }>;
+type CourseGoalProps = PropsWithChildren<{
+  title: string;
+  onDelete: (id: number) => void;
+}>;
 
-// function CourseGoal({ title, children }: CourseGoalProps) {
-//   return (
-//     <article>
-//       <div>
-//         <h2>{title}</h2>
-//         <p>{children}</p>
-//       </div>
-//       <button>Delete</button>
-//     </article>
-//   );
-// }
+function CourseGoal({ title, onDelete, children }: CourseGoalProps) {
+  return (
+    <article>
+      <div>
+        <h2>{title}</h2>
+        <p>{children}</p>
+      </div>
+      <button onClick={onDelete}>Delete</button>
+    </article>
+  );
+}
 
 // const CourseGoal: FC<CourseGoalProps> = ({ title, children }) => {
 //   return (
