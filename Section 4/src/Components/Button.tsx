@@ -1,5 +1,6 @@
 import { type ComponentPropsWithoutRef } from 'react';
 
+//Still the better way is to specify the type='what button' because the current implementation has many flaws
 type ButtonProps = ComponentPropsWithoutRef<'button'> & { href?: never };
 
 type AnchorProps = ComponentPropsWithoutRef<'a'> & { href?: string };
