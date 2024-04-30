@@ -1,6 +1,7 @@
+/* eslint-disable react-refresh/only-export-components */
 import { type ReactNode, createContext, useContext, useReducer } from 'react';
 
-type Timer = {
+export type Timer = {
   name: string;
   duration: number;
 };
@@ -16,10 +17,18 @@ type TimersContextValue = TimersState & {
   stopTimers: () => void;
 };
 
-type DispatchType = {
-  type: 'addTimer' | 'startTimers' | 'stopTimers';
-  payload: any;
+type StartTimersAction = {
+  type: 'startTimers';
 };
+type StopTimersAction = {
+  type: 'stopTimers';
+};
+type AddTimerAction = {
+  type: 'addTimer';
+  payload: Timer;
+};
+
+type DispatchType = StartTimersAction | StopTimersAction | AddTimerAction;
 
 const initialState: TimersState = {
   isRunning: true,
@@ -28,7 +37,17 @@ const initialState: TimersState = {
 function reducer(state: TimersState, action: DispatchType): TimersState {
   switch (action.type) {
     case 'startTimers':
-      return { ...state };
+      return { ...state, isRunning: true };
+    case 'stopTimers':
+      return { ...state, isRunning: false };
+    case 'addTimer':
+      return {
+        ...state,
+        timers: [
+          ...state.timers,
+          { name: action.payload.name, duration: action.payload.duration },
+        ],
+      };
     default:
       throw new Error('unknown action');
   }
@@ -42,18 +61,18 @@ function TimersContextProvider({ children }: TimersContextProviderProps) {
   const [timersState, dispatch] = useReducer(reducer, initialState);
 
   const ctx: TimersContextValue = {
-    timers: [],
-    isRunning: true,
+    timers: timersState.timers,
+    isRunning: timersState.isRunning,
     addTimer(timerData) {
-      dispatch({ type: 'addTimer', payload: '' });
+      dispatch({ type: 'addTimer', payload: timerData });
     },
     startTimers() {
       //...
-      dispatch({ type: 'startTimers', payload: '' });
+      dispatch({ type: 'startTimers' });
     },
     stopTimers() {
       //...
-      dispatch({ type: 'stopTimers', payload: '' });
+      dispatch({ type: 'stopTimers' });
     },
   };
 
@@ -64,6 +83,7 @@ function TimersContextProvider({ children }: TimersContextProviderProps) {
 
 function useTimersContext() {
   const timersCtx = useContext(TimersContext);
+  console.log(timersCtx);
   if (timersCtx === null)
     throw new Error(
       'The context has been consumed by a component that does not have access to it.'
