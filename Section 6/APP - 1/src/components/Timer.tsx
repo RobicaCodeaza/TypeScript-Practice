@@ -10,14 +10,14 @@ export default function Timer({ name, duration }: TimerProps) {
   const interval = useRef<number | null>(null);
   const { isRunning } = useTimersContext();
 
-  // if (remainingState <= 0 && interval.current) {
-  //   clearInterval(interval.current);
-  // }
+  if (remainingState <= 0 && interval.current) {
+    clearInterval(interval.current);
+  }
 
   useEffect(
     function () {
       let timer: number;
-      console.log('again');
+      // console.log('again');
       if (isRunning) {
         timer = setInterval(function () {
           setRemainingState((remainingState) => {
