@@ -84,7 +84,7 @@ function TimersContextProvider({ children }: TimersContextProviderProps) {
 function useTimersContext() {
   const timersCtx = useContext(TimersContext);
   console.log(timersCtx);
-  if (timersCtx === null)
+  if (timersCtx === null || undefined)
     throw new Error(
       'The context has been consumed by a component that does not have access to it.'
     );
