@@ -8,16 +8,17 @@ import { useEffect, useRef, useState } from 'react';
 export default function Timer({ name, duration }: TimerProps) {
   const [remainingState, setRemainingState] = useState(duration * 1000);
   const interval = useRef<number | null>(null);
-  const { isRunning } = useTimersContext();
+  const { isRunning, stopTimers } = useTimersContext();
 
   if (remainingState <= 0 && interval.current) {
     clearInterval(interval.current);
+    // stopTimers();
   }
 
   useEffect(
     function () {
       let timer: number;
-      // console.log('again');
+      // console.log(isRunning);
       if (isRunning) {
         timer = setInterval(function () {
           setRemainingState((remainingState) => {

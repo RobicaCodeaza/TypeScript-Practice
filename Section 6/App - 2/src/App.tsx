@@ -35,8 +35,8 @@ function App() {
       }
       setIsFetching(false);
     }
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    getPosts();
+
+    void getPosts();
   }, []);
   let content: ReactNode;
   if (error) {
